@@ -6,13 +6,12 @@ IP = "0.0.0.0"
 PORT = 53
 
 def build_big_dns_response(query):
-    name = query.qd.qname if query.qd else b"example.com."
+    name = query.qd.qname if query.qd else b"ciao.com."
 
-    # Tanti record TXT per gonfiare la risposta
     answers = []
-    big_txt = "X" * 300  # aumenta se vuoi pacchetti enormi
+    big_txt = "X" * 300
 
-    for _ in range(20):  # 20 record TXT → risposta enorme
+    for _ in range(20):
         answers.append(DNSRR(rrname=name, type="TXT", ttl=300, rdata=big_txt))
 
     # EDNS0 (ammesso nella section "ar")
@@ -24,7 +23,7 @@ def build_big_dns_response(query):
         qr=1, aa=1, rd=1,
         qd=query.qd,
         ancount=len(answers),
-        an=answers,       # <-- lista diretta, nessuna concatenazione
+        an=answers,
         ar=opt
     )
 
